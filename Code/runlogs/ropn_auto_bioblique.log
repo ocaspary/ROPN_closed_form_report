@@ -1,0 +1,8 @@
+=== donnees matricielles 16 x 32 (d = 512), C = 3, motifs de classe de rang 2, bruit Sig_S (x) Sig_T (kappa = 30 de chaque cote), 8 graines, 70/30 stratifie ===
+separation n/classe n_train |  bloc vectorise | metrique Kronecker | projecteur Kronecker |     MLP (64)
+      0.25       20      42 |   94.4 +/-  6.8 |     100.0 +/-  0.0 |        87.5 +/- 13.0 |  81.9 +/- 11.0
+      0.25       60     126 |   99.8 +/-  0.6 |     100.0 +/-  0.0 |        98.4 +/-  2.3 |  95.1 +/-  5.7
+      0.15       60     126 |   91.0 +/-  8.9 |     100.0 +/-  0.0 |        88.7 +/-  6.6 |  73.8 +/- 11.8
+      0.15      200     420 |   99.4 +/-  0.6 |     100.0 +/-  0.0 |        93.5 +/-  6.2 |  94.4 +/-  2.6
+      0.10      200     420 |   92.2 +/-  4.2 |      99.9 +/-  0.2 |        90.8 +/-  6.0 |  79.7 +/-  6.1
+idempotence du projecteur de Kronecker P_R (x) P_L : ||P^2-P||/||P|| = 6.6e-16, rang = 4 = r_L r_R = 4

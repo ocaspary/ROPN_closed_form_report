@@ -1,0 +1,66 @@
+=== S1. Norme, angle, borne d'amplification atteinte, exemple 2x2 ===
+  P_a, a= 0.0 : P^2 = P ? True | valeurs propres [1.+0.j 0.+0.j] | ||P_a||_2 = 1.0000 = sqrt(1+a^2) = 1.0000 | perturbation (0, eps) -> [0. 0.]
+  P_a, a= 1.0 : P^2 = P ? True | valeurs propres [1.+0.j 0.+0.j] | ||P_a||_2 = 1.4142 = sqrt(1+a^2) = 1.4142 | perturbation (0, eps) -> [0.001 0.   ]
+  P_a, a=10.0 : P^2 = P ? True | valeurs propres [1.+0.j 0.+0.j] | ||P_a||_2 = 10.0499 = sqrt(1+a^2) = 10.0499 | perturbation (0, eps) -> [0.01 0.  ]
+  bloc ferme kappa=   10 : ||P||_2 = 1.1614 | 1/sigma_min(Q_W^T Q_U) = 1.1614 | 1/sin(theta_min) = 1.1614 | ||I-P||_2 = 1.1614 | amplification mesuree le long de v_1 = 1.1614 (borne atteinte)
+  bloc ferme kappa=  200 : ||P||_2 = 1.5469 | 1/sigma_min(Q_W^T Q_U) = 1.5469 | 1/sin(theta_min) = 1.5469 | ||I-P||_2 = 1.5469 | amplification mesuree le long de v_1 = 1.5469 (borne atteinte)
+
+=== S2. kappa(W^T U) = 1 par construction ne borne pas ||P||_2 (rang 1) ===
+  w = u +  0.0 v_perp : W^T U = 1.0 (kappa = 1) | ||P||_2 = 1.000 = sqrt(1 + t^2) = 1.000 | P^2 = P ? True
+  w = u +  1.0 v_perp : W^T U = 1.0 (kappa = 1) | ||P||_2 = 1.414 = sqrt(1 + t^2) = 1.414 | P^2 = P ? True
+  w = u +  5.0 v_perp : W^T U = 1.0 (kappa = 1) | ||P||_2 = 5.099 = sqrt(1 + t^2) = 5.099 | P^2 = P ? True
+  w = u + 50.0 v_perp : W^T U = 1.0 (kappa = 1) | ||P||_2 = 50.010 = sqrt(1 + t^2) = 50.010 | P^2 = P ? True
+
+=== S3. Borne metrique ||P||_2 <= (sqrt(kappa)+1/sqrt(kappa))/2 <= sqrt(kappa), kappa = kappa(S), et controle de l'obliquite par le retrecissement (kappa=200, 10 graines) ===
+   n/cl  a (LW) ||P||_2 brut ||P||_2 LW  borne fine (S_LW)  sqrt(kappa(S_LW)) sqrt(1+(1-a)lmax/(a mu)) sqrt(kappa(S_W))
+     10   0.278         3.09       1.32               2.27               4.31                     4.32            68.66   | ||M P - P^T M||/||M P|| = 7.1e-16 | max(||P||_2 - borne fine) = -0.69
+     15   0.217         2.53       1.30               2.50               4.78                     4.85            28.10   | ||M P - P^T M||/||M P|| = 7.8e-16 | max(||P||_2 - borne fine) = -0.83
+     30   0.132         2.16       1.41               3.00               5.84                     6.14            18.53   | ||M P - P^T M||/||M P|| = 9.4e-16 | max(||P||_2 - borne fine) = -1.38
+    100   0.045         2.02       1.62               4.31               8.51                    10.33            14.98   | ||M P - P^T M||/||M P|| = 1.5e-15 | max(||P||_2 - borne fine) = -2.32
+   1000   0.005         1.96       1.90               6.54              13.01                    32.71            14.17   | ||M P - P^T M||/||M P|| = 2.3e-15 | max(||P||_2 - borne fine) = -4.37
+  (la borne fine est respectee pour chaque graine ; le coefficient a decroit avec n et l'obliquite admissible croit.)
+  2000 couples (M, U) aleatoires : max ||P||_2 / borne fine = 1.0000 ; rang un, u = v_min/sqrt(l_min) + v_max/sqrt(l_max) : ||P||_2 = 2.7303, borne fine = 2.7303 (atteinte)
+
+=== S4. Meilleure approximation : euclidienne non, dans la metrique de Fisher oui (kappa=200, n/cl=100) ===
+  ||x - Px|| / ||x - Q_S x|| (euclidien) : min 1.005, max 1.354 <= ||P||_2 = 1.547 ; ratio > 1 sur 100% des points
+  meme ratio en norme M = S^-1 (Fisher)  : min 0.526, max 0.986 (<= 1 partout : P est la meilleure approximation M-orthogonale)
+
+=== S5. Perte d'information et forme residuelle ===
+  perturbation de norme 3 sigma dans ker(W^T) : code change de 3.4e-14, predictions identiques 100.0%
+  perturbation de meme norme dans span(U)     : predictions identiques 74.2%  (le noyau est invisible, l'image ne l'est pas)
+  I + P/1 : idempotent ? ||T^2 - T||/||T|| = 0.86 | inverse I - P/2 : ||T (I - P/(L+1)) - I|| = 1.5e-15 | det = (1+1/L)^r = 8.0000 vs 8.0000
+  I + P/2 : idempotent ? ||T^2 - T||/||T|| = 0.37 | inverse I - P/3 : ||T (I - P/(L+1)) - I|| = 8.5e-16 | det = (1+1/L)^r = 3.3750 vs 3.3750
+  I + P/4 : idempotent ? ||T^2 - T||/||T|| = 0.16 | inverse I - P/5 : ||T (I - P/(L+1)) - I|| = 9.7e-16 | det = (1+1/L)^r = 1.9531 vs 1.9531
+
+=== S6. Regulariser le cross-Gram detruit l'idempotence ; regulariser la metrique la conserve ===
+  (W^T U + 0.00 I)^-1 : ||P^2 - P||/||P|| = 1.9e-16
+  (W^T U + 0.01 I)^-1 : ||P^2 - P||/||P|| = 9.9e-03
+  (W^T U + 0.10 I)^-1 : ||P^2 - P||/||P|| = 9.1e-02
+  (W^T U + 1.00 I)^-1 : ||P^2 - P||/||P|| = 5.0e-01
+  metrique retrecie (Ledoit-Wolf, a = 0.045) : ||P^2 - P||/||P|| = 1.0e-15, ||W^T U - I|| = 1.7e-15
+
+=== S7. Profondeur : borne produit et inversibilite != conditionnement ===
+  L=2 : ||(I+P/L)^L||_2 = 2.751 | borne produit (1 + ||P||_2/L)^L = 3.145 | exact ||I + c_L P||_2 = 2.751
+  L=4 : ||(I+P/L)^L||_2 = 3.034 | borne produit (1 + ||P||_2/L)^L = 3.698 | exact ||I + c_L P||_2 = 3.034
+  L=8 : ||(I+P/L)^L||_2 = 3.219 | borne produit (1 + ||P||_2/L)^L = 4.113 | exact ||I + c_L P||_2 = 3.219
+  porte, T=1 : det = 4.48e-04 (non nul) | sigma_min = 3.838e-01 | sigma_max = 1.656 | conditionnement = 4.3
+  porte, T=4 : det = 4.03e-14 (non nul) | sigma_min = 9.891e-02 | sigma_max = 1.648 | conditionnement = 16.7
+  porte, T=8 : det = 1.63e-27 (non nul) | sigma_min = 1.769e-02 | sigma_max = 1.501 | conditionnement = 84.9
+
+=== S8. Spectre singulier d'un projecteur oblique et lecture en deux etapes (kappa=200, n/cl=100) ===
+  valeurs singulieres non nulles de P : [1.5469 1.434  1.1861]
+  1/cos(theta_i), angles principaux span(U)/span(W) = [32.53 45.79 49.73] deg : [1.5469 1.434  1.1861]
+  W^T x - W^T (Q_W Q_W^T x) = 3.1e-16 : le code ne lit que la projection orthogonale de x sur span(W)
+
+=== S9. Seuil d'interpolation : ||P||_2 brut (pseudo-inverse de S_W) contre retreci, en fonction de (n_train - C)/d (kappa=200, 10 graines) ===
+   n/cl  (n_train-C)/d ||P|| brut  ||P|| LW  acc brut  acc LW
+      4           0.35       4.34      1.33      44.0    94.0
+      6           0.60       3.16      1.23      85.0    97.5
+      7           0.75       3.26      1.28      82.2    98.9
+      8           0.90       4.50      1.31      88.0   100.0
+      9           1.05       4.54      1.26      92.7   100.0
+     10           1.20       3.09      1.32      99.2   100.0
+     12           1.45       2.80      1.34      99.3   100.0
+     15           1.90       2.53      1.30     100.0   100.0
+     30           4.00       2.16      1.41     100.0   100.0
+  (le pic de ||P|| brut est a (n_train - C)/d ~ 0.9 ; le retrecissement le supprime et la precision brute ne montre pas de double descente ici.)

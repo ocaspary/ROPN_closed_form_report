@@ -1,0 +1,76 @@
+=== Invariance exacte par congruence de la chaine TS-AI + bloc fast (regime MI, sep=0.1) ===
+    A : gains de canaux entre 0.1 et 10 puis rotation, conditionnement 40.8
+    moyenne de Karcher equivariante : ||G(A Sigma A^T) - A G A^T|| / ||.|| = 2.9e-15
+    TS-AI      : Gram des features conserve a 6.3e-14 | codes conserves a 2.4e-14 | precision 96.7% -> apres A : 96.7% | predictions identiques : 100.0%
+    TS-LE      : Gram des features conserve a 1.9e+01 | codes conserves a 1.3e+00 | precision 96.7% -> apres A : 93.3% | predictions identiques : 96.7%
+    vec(Sigma) : Gram des features conserve a 9.0e+02 | codes conserves a 5.6e-01 | precision 95.0% -> apres A : 53.3% | predictions identiques : 48.3%
+
+=== Regimes MI (covariances, sep=0.1) et ERP (moyennes, sep=0.4), p=8, T=64, gain aleatoire par essai, 5 graines ===
+  regime MI, 10 essais/classe en apprentissage (d_tangent = 36) :
+      TS-AI + bloc fast          :  98.0 +-  1.6 %   (    12 ms)
+      TS-LE + bloc fast          :  97.3 +-  1.3 %   (     4 ms)
+      vec(Sigma) + bloc fast     :  82.7 +-  6.5 %   (     1 ms)
+      Kronecker (essais bruts)   :  31.3 +-  6.2 %   (    81 ms)
+      MDM                        :  67.3 +-  6.5 %   (    11 ms)
+      TS-AI + MLP(64)            :  92.0 +-  6.2 %   (   100 ms)
+  regime MI, 30 essais/classe en apprentissage (d_tangent = 36) :
+      TS-AI + bloc fast          :  97.6 +-  3.8 %   (    27 ms)
+      TS-LE + bloc fast          :  97.6 +-  3.8 %   (     9 ms)
+      vec(Sigma) + bloc fast     :  92.0 +- 10.0 %   (     1 ms)
+      Kronecker (essais bruts)   :  34.2 +-  3.7 %   (   262 ms)
+      MDM                        :  82.4 +-  7.9 %   (    28 ms)
+      TS-AI + MLP(64)            :  98.0 +-  4.0 %   (   117 ms)
+  regime ERP, 10 essais/classe en apprentissage (d_tangent = 36) :
+      TS-AI + bloc fast          :  74.0 +- 16.1 %   (     9 ms)
+      TS-LE + bloc fast          :  75.3 +- 14.8 %   (     3 ms)
+      vec(Sigma) + bloc fast     :  70.0 +- 12.8 %   (     1 ms)
+      Kronecker (essais bruts)   :  84.7 +- 10.5 %   (    76 ms)
+      MDM                        :  46.7 +- 13.5 %   (     9 ms)
+      TS-AI + MLP(64)            :  74.7 +- 12.6 %   (   106 ms)
+  regime ERP, 30 essais/classe en apprentissage (d_tangent = 36) :
+      TS-AI + bloc fast          :  83.6 +- 10.8 %   (    24 ms)
+      TS-LE + bloc fast          :  83.8 +- 10.5 %   (     9 ms)
+      vec(Sigma) + bloc fast     :  81.1 +- 13.3 %   (     1 ms)
+      Kronecker (essais bruts)   :  98.7 +-  1.6 %   (   266 ms)
+      MDM                        :  60.4 +- 19.7 %   (    32 ms)
+      TS-AI + MLP(64)            :  82.4 +- 12.8 %   (   202 ms)
+
+=== Changement de session : apprentissage avec gains A1, test avec gains A2 = A1 * exp(perturbation) (MI, 30/classe) ===
+  perturbation eps = 0.0 :
+      TS-AI, moyenne d'apprentissage   :  97.6 +-  3.8 %
+      TS-AI, re-centre par session     :  97.3 +-  4.8 %
+        (||Q - I||_F residuel)         :  0.00
+        (predictions = sans changement) : 100.0 +-  0.0 %
+      TS-LE                            :  97.3 +-  4.3 %
+      vec(Sigma)                       :  90.4 +- 12.4 %
+      MDM                              :  82.4 +-  7.9 %
+      TS-AI + MLP(64), re-centre       :  97.1 +-  4.7 %
+  perturbation eps = 0.2 :
+      TS-AI, moyenne d'apprentissage   :  58.4 +- 28.0 %
+      TS-AI, re-centre par session     :  97.6 +-  4.4 %
+        (||Q - I||_F residuel)         :  0.31
+        (predictions = sans changement) :  99.8 +-  0.4 %
+      TS-LE                            :  61.1 +- 26.8 %
+      vec(Sigma)                       :  69.1 +- 23.4 %
+      MDM                              :  67.8 +- 18.1 %
+      TS-AI + MLP(64), re-centre       :  97.3 +-  4.8 %
+  perturbation eps = 0.5 :
+      TS-AI, moyenne d'apprentissage   :  42.4 +- 16.2 %
+      TS-AI, re-centre par session     :  97.1 +-  5.2 %
+        (||Q - I||_F residuel)         :  0.61
+        (predictions = sans changement) :  98.9 +-  2.2 %
+      TS-LE                            :  51.8 +- 25.2 %
+      vec(Sigma)                       :  50.0 +- 16.1 %
+      MDM                              :  52.9 +- 15.4 %
+      TS-AI + MLP(64), re-centre       :  97.1 +-  5.2 %
+
+=== Passage a l'echelle : p=32 canaux (d_tangent=528), 30 essais/classe, T=100, regime MI (sans Kronecker : ~1 min) ===
+      TS-AI + bloc fast          : 100.0 %   (   179 ms)
+      TS-LE + bloc fast          : 100.0 %   (    27 ms)
+      vec(Sigma) + bloc fast     : 100.0 %   (     2 ms)
+      MDM                        :  98.9 %   (   166 ms)
+      TS-AI + MLP(64)            : 100.0 %   (   116 ms)
+
+=== Diagnostics : plus petite valeur propre des covariances d'essai, iterations de Karcher (tolerance 1e-10), distance du point de base a l'identite ===
+      p= 8, T= 64 : plus petite valeur propre 0.047 | iterations de Karcher [8, 8, 10, 10, 10] | ||log G||_F = [1.59, 1.09, 1.46, 1.45, 1.32]
+      p=32, T=100 : plus petite valeur propre 0.035 | iterations de Karcher [15] | ||log G||_F = [3.04]

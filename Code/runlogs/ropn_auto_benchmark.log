@@ -1,0 +1,53 @@
+[info] MNIST (OpenML) indisponible ici : URLError. Lancer ce script avec acces reseau pour l'inclure.
+
+=== synth gauss k=10, n=15/cl  (n=60, d=20, C=4, 5 graines, split 70/30) ===
+  methode                              acc  bal.acc  temps(s)   #param   #grad  convergence | cout
+  orthogonal (centroides)      94.4 +/- 3.5    94.0     0.002       80       0  1 passe (moyennes) | O(n d)
+  bloc ferme base              82.2 +/-11.9    81.8     0.025      124       0  1 GEVP + 200 GEVP (permutation), r*=2 | O(n d^2 + d^3) x (1+n_perm)
+  bloc ferme corrige           96.7 +/- 4.4    96.2     0.001       76       0  1 GEVP (Ledoit-Wolf), r*=3 | O(n d^2 + d^3)
+  MLP (backprop)               91.1 +/- 5.7    90.8     0.095     1004    1004  385 epoques Adam (perte finale 0.015) | O(epoques x n x d x h), h=40
+
+=== synth gauss k=200, n=200/cl  (n=800, d=20, C=4, 5 graines, split 70/30) ===
+  methode                              acc  bal.acc  temps(s)   #param   #grad  convergence | cout
+  orthogonal (centroides)      98.6 +/- 0.6    98.6     0.002       80       0  1 passe (moyennes) | O(n d)
+  bloc ferme base             100.0 +/- 0.0   100.0     0.054      144       0  1 GEVP + 200 GEVP (permutation), r*=3 | O(n d^2 + d^3) x (1+n_perm)
+  bloc ferme corrige          100.0 +/- 0.0   100.0     0.003       76       0  1 GEVP (Ledoit-Wolf), r*=3 | O(n d^2 + d^3)
+  MLP (backprop)               99.9 +/- 0.2    99.9     0.246     1004    1004  196 epoques Adam (perte finale 0.007) | O(epoques x n x d x h), h=40
+
+=== synth hetero k=50, n=60/cl  (n=240, d=20, C=4, 5 graines, split 70/30) ===
+  methode                              acc  bal.acc  temps(s)   #param   #grad  convergence | cout
+  orthogonal (centroides)      92.5 +/- 1.4    92.5     0.001       80       0  1 passe (moyennes) | O(n d)
+  bloc ferme base              92.2 +/- 1.4    92.2     0.021      144       0  1 GEVP + 200 GEVP (permutation), r*=3 | O(n d^2 + d^3) x (1+n_perm)
+  bloc ferme corrige           93.6 +/- 1.1    93.6     0.001       76       0  1 GEVP (Ledoit-Wolf), r*=3 | O(n d^2 + d^3)
+  MLP (backprop)               92.8 +/- 1.6    92.8     0.142     1004    1004  465 epoques Adam (perte finale 0.020) | O(epoques x n x d x h), h=40
+
+=== digits 8x8 (10 cl.)  (n=1797, d=64, C=10, 5 graines, split 70/30) ===
+  methode                              acc  bal.acc  temps(s)   #param   #grad  convergence | cout
+  orthogonal (centroides)      89.3 +/- 1.2    89.2     0.004      610       0  1 passe (moyennes) | O(n d)
+  bloc ferme base              94.6 +/- 0.6    94.6     0.122     1169       0  1 GEVP + 200 GEVP (permutation), r*=9 | O(n d^2 + d^3) x (1+n_perm)
+  bloc ferme corrige           95.3 +/- 0.2    95.3     0.006      649       0  1 GEVP (Ledoit-Wolf), r*=9 | O(n d^2 + d^3)
+  MLP (backprop)               97.8 +/- 0.6    97.8     0.967     8794    8794  152 epoques Adam (perte finale 0.004) | O(epoques x n x d x h), h=122
+
+=== breast cancer (medical, 2 cl.)  (n=569, d=30, C=2, 5 graines, split 70/30) ===
+  methode                              acc  bal.acc  temps(s)   #param   #grad  convergence | cout
+  orthogonal (centroides)      92.9 +/- 1.6    91.7     0.002       60       0  1 passe (moyennes) | O(n d)
+  bloc ferme base              94.6 +/- 1.0    93.0     0.032       92       0  1 GEVP + 200 GEVP (permutation), r*=1 | O(n d^2 + d^3) x (1+n_perm)
+  bloc ferme corrige           95.4 +/- 0.9    94.2     0.002       34       0  1 GEVP (Ledoit-Wolf), r*=1 | O(n d^2 + d^3)
+  MLP (backprop)               96.5 +/- 1.2    95.9     0.243     1921    1921  248 epoques Adam (perte finale 0.014) | O(epoques x n x d x h), h=60
+
+=== wine (3 cl.)  (n=178, d=13, C=3, 5 graines, split 70/30) ===
+  methode                              acc  bal.acc  temps(s)   #param   #grad  convergence | cout
+  orthogonal (centroides)      96.3 +/- 2.0    96.8     0.002       39       0  1 passe (moyennes) | O(n d)
+  bloc ferme base              97.0 +/- 2.5    97.4     0.020       68       0  1 GEVP + 200 GEVP (permutation), r*=2 | O(n d^2 + d^3) x (1+n_perm)
+  bloc ferme corrige          100.0 +/- 0.0   100.0     0.001       35       0  1 GEVP (Ledoit-Wolf), r*=2 | O(n d^2 + d^3)
+  MLP (backprop)               98.5 +/- 1.4    98.7     0.118      547     547  408 epoques Adam (perte finale 0.019) | O(epoques x n x d x h), h=32
+
+[resultats ecrits dans ropn_auto_benchmark_results.csv]
+
+=== Synthese : meilleure methode par jeu (precision moyenne) ===
+  synth gauss k=10, n=15/cl            -> bloc ferme corrige       (96.7%) | corrige vs MLP : 96.7 vs 91.1, params 76 vs 1004, temps x66
+  synth gauss k=200, n=200/cl          -> bloc ferme base          (100.0%) | corrige vs MLP : 100.0 vs 99.9, params 76 vs 1004, temps x80
+  synth hetero k=50, n=60/cl           -> bloc ferme corrige       (93.6%) | corrige vs MLP : 93.6 vs 92.8, params 76 vs 1004, temps x106
+  digits 8x8 (10 cl.)                  -> MLP (backprop)           (97.8%) | corrige vs MLP : 95.3 vs 97.8, params 649 vs 8794, temps x154
+  breast cancer (medical, 2 cl.)       -> MLP (backprop)           (96.5%) | corrige vs MLP : 95.4 vs 96.5, params 34 vs 1921, temps x110
+  wine (3 cl.)                         -> bloc ferme corrige       (100.0%) | corrige vs MLP : 100.0 vs 98.5, params 35 vs 547, temps x89

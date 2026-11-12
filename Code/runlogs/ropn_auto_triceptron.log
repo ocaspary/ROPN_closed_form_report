@@ -1,0 +1,37 @@
+gradcheck : glu 7.6e-08 ; glu+saut 1.5e-07 ; relu 1.9e-07 ; relu+saut 8.1e-08
+
+=== 1. Problemes 2-D : 10 tirages INDEPENDANTS (n = 400, 70/30), meme entraineur pour les deux familles (Adam, 2000 pas, lr 1e-2, L2 1e-4) ===
+    GLU = triceptron (r unites), MLP = ReLU (h unites) a nombre de parametres voisin ; avec ou sans saut lineaire ; L-BFGS : MLP sklearn sans saut (autre optimiseur)
+    jeu         r |  par         GLU |  h  par         MLP  MLP L-BFGS |  par    GLU+saut |  h  par    MLP+saut | GLU - MLP [IC 95 %] | GLU+saut - MLP+saut [IC 95 %]
+    two moons  16 |  130  98.8+/- 0.9 | 26  132  98.9+/- 0.9  98.5+/- 0.9 |  134  98.8+/- 1.1 | 26  136  98.9+/- 0.9 |  -0.1 [ -0.4,  +0.3] equivalent |  -0.2 [ -0.4,  +0.1] equivalent
+    two moons   4 |   34  98.7+/- 0.9 |  6   32  98.9+/- 0.9  96.8+/- 2.8 |   38  98.8+/- 0.8 |  6   36  98.8+/- 1.1 |  -0.2 [ -0.5,  +0.0] equivalent |  +0.1 [ -0.4,  +0.5] equivalent
+    two moons   2 |   18  97.6+/- 3.8 |  3   17  91.0+/- 4.0  89.5+/- 4.0 |   22  98.8+/- 0.9 |  3   21  95.6+/- 4.9 |  +6.6 [ +2.8, +10.4] A > B |  +3.2 [ -0.6,  +6.9] indetermine
+    two moons   1 |   10  88.2+/- 2.2 |  2   12  88.8+/- 2.7  84.8+/-12.0 |   14  94.6+/- 5.4 |  2   16  91.2+/- 4.4 |  -0.7 [ -1.5,  +0.1] indetermine |  +3.4 [ -2.9,  +9.7] indetermine
+    circles    16 |  130  99.1+/- 0.7 | 26  132  99.2+/- 0.7  99.2+/- 0.7 |  134  99.1+/- 0.7 | 26  136  99.2+/- 0.6 |  -0.2 [ -0.4,  +0.1] equivalent |  -0.1 [ -0.3,  +0.1] equivalent
+    circles     4 |   34  99.0+/- 0.8 |  6   32  98.8+/- 0.9  97.9+/- 1.8 |   38  99.0+/- 0.8 |  6   36  98.8+/- 0.8 |  +0.2 [ -0.1,  +0.4] equivalent |  +0.2 [ -0.1,  +0.4] equivalent
+    circles     2 |   18  98.3+/- 1.5 |  3   17  92.5+/-10.7  82.9+/-11.2 |   22  98.6+/- 1.4 |  3   21  98.0+/- 2.1 |  +5.8 [ -2.1, +13.7] indetermine |  +0.6 [ -0.4,  +1.6] indetermine
+    circles     1 |   10  70.6+/- 3.9 |  2   12  69.7+/- 6.9  72.2+/- 4.2 |   14  70.5+/- 3.9 |  2   16  81.9+/-13.9 |  +0.9 [ -5.1,  +6.9] indetermine | -11.4 [-22.0,  -0.8] A < B
+    XOR        16 |  130  97.9+/- 1.6 | 26  132  99.0+/- 0.7  98.3+/- 1.6 |  134  98.8+/- 0.8 | 26  136  99.2+/- 0.6 |  -1.1 [ -2.3,  +0.2] indetermine |  -0.5 [ -1.4,  +0.4] indetermine
+    XOR         4 |   34  98.2+/- 1.1 |  6   32  98.3+/- 1.2  98.4+/- 0.9 |   38  98.1+/- 1.3 |  6   36  98.7+/- 0.9 |  -0.0 [ -0.6,  +0.6] equivalent |  -0.6 [ -1.8,  +0.6] indetermine
+    XOR         2 |   18  98.4+/- 1.3 |  3   17  88.3+/-10.9  83.0+/-12.6 |   22  98.0+/- 1.2 |  3   21  95.5+/- 8.3 | +10.1 [ +1.8, +18.4] A > B |  +2.5 [ -3.9,  +8.9] indetermine
+    XOR         1 |   10  74.2+/- 4.6 |  2   12  70.7+/- 7.1  70.8+/- 6.7 |   14  98.7+/- 0.8 |  2   16  90.3+/-11.6 |  +3.4 [ -3.1, +10.0] indetermine |  +8.3 [ -0.7, +17.3] indetermine
+
+=== 2. Poids CONSTRUITS (constructions du theoreme de capacite, aucun apprentissage) contre poids APPRIS, donnees brutes non standardisees, 10 tirages ===
+    construit, gamma = 1.00 : cercles (2 unites + saut)  99.7+/- 0.3 | XOR (1 unite + saut) 100.0+/- 0.0 | plus grand poids sous forme normalisee (lecture 4/gamma) =   4.0 | ecart radial theorique gamma^2 R^3/24 = 1.8e-02
+    construit, gamma = 0.50 : cercles (2 unites + saut)  99.7+/- 0.2 | XOR (1 unite + saut) 100.0+/- 0.0 | plus grand poids sous forme normalisee (lecture 4/gamma) =   8.0 | ecart radial theorique gamma^2 R^3/24 = 4.4e-03
+    construit, gamma = 0.20 : cercles (2 unites + saut)  99.6+/- 0.3 | XOR (1 unite + saut) 100.0+/- 0.0 | plus grand poids sous forme normalisee (lecture 4/gamma) =  20.0 | ecart radial theorique gamma^2 R^3/24 = 7.0e-04
+    construit, gamma = 0.05 : cercles (2 unites + saut)  99.6+/- 0.3 | XOR (1 unite + saut) 100.0+/- 0.0 | plus grand poids sous forme normalisee (lecture 4/gamma) =  80.0 | ecart radial theorique gamma^2 R^3/24 = 4.4e-05
+    appris, circles  GLU+saut r=2 (22 parametres) : precision test  98.8+/- 1.1 | plus grand poids   7.8 | norme max d'une direction de porte ||s|| =  3.7
+    appris, XOR      GLU+saut r=1 (14 parametres) : precision test  98.6+/- 0.8 | plus grand poids   7.6 | norme max d'une direction de porte ||s|| =  7.5
+    (precision des poids construits evaluee sur les 400 points de chaque tirage ; les unites apprises sont loin du regime doux gamma -> 0 de la construction.)
+
+=== 3. Tous les jeux, r = 16, 5 decoupages 70/30 d'un jeu fixe : bloc analytique, TRI-CF, GLU et MLP (meme entraineur), MLP sklearn L-BFGS ===
+    jeu              |   bloc fast | TRI-CF auto  k |   par         GLU |   h   par         MLP  MLP L-BFGS | GLU - MLP [IC 95 %, variabilite du decoupage]
+    two moons (2D)   |  86.8+/- 3.2 |  86.8+/- 3.2  2 |   130  98.2+/- 1.3 |  26   132  98.0+/- 1.1  96.7+/- 1.9 |  +0.2 [ -0.3,  +0.6] equivalent
+    circles (2D)     |  46.0+/- 4.1 |  69.5+/- 6.4  2 |   130  99.8+/- 0.3 |  26   132 100.0+/- 0.0  99.3+/- 0.3 |  -0.2 [ -0.6,  +0.3] equivalent
+    XOR (2D)         |  50.0+/- 0.9 |  80.2+/- 6.2  2 |   130  98.0+/- 0.8 |  26   132  97.8+/- 0.7  96.3+/- 1.5 |  +0.2 [ -1.2,  +1.5] indetermine
+    gauss n=15/cl    |  96.7+/- 4.4 |  93.3+/- 6.5  0 |   740  90.0+/- 5.4 |  29   729  90.0+/- 5.4  90.0+/- 5.4 |  +0.0 [ +0.0,  +0.0] equivalent
+    hetero n=60/cl   |  93.6+/- 1.1 |  92.2+/- 1.7  2 |   740  93.3+/- 1.0 |  29   729  92.8+/- 1.4  91.9+/- 1.6 |  +0.6 [ -0.4,  +1.5] indetermine
+    digits           |  95.3+/- 0.2 |  94.6+/- 0.3  7 |  2154  98.0+/- 0.6 |  30  2170  98.0+/- 0.4  96.4+/- 0.8 |  -0.0 [ -0.3,  +0.3] equivalent
+    breast           |  95.4+/- 0.9 |  95.6+/- 0.9  4 |  1026  96.4+/- 0.9 |  31  1025  96.6+/- 0.7  96.0+/- 1.2 |  -0.2 [ -0.9,  +0.4] equivalent
+    wine             | 100.0+/- 0.0 |  99.3+/- 0.9  1 |   499  98.9+/- 0.9 |  29   496  99.3+/- 0.9  99.6+/- 0.7 |  -0.4 [ -1.4,  +0.7] indetermine

@@ -1,0 +1,18 @@
+corpus : 152576 caracteres, alphabet de 35 symboles
+
+=== contexte k=2 : d = 70 (one-hot), C = 35 classes, n_train = 22500 ===
+  n-gramme (comptage, lissage)       acc =  37.0  ppl =   9.06  |   0.1 s
+  bloc fast (LDA oblique, rang C-1)  acc =  23.0  ppl =    --   |   0.1 s  (r=34, dual=False)
+  bloc fast, lecture MC (comparaison) acc =  27.6  ppl =    --   |
+  LDA-shrinkage (proba)              acc =  22.0  ppl =  25.53  |   0.1 s
+  regression logistique (lineaire)   acc =  29.4  ppl =  11.44  |   1.2 s
+  treillis AUTO (ferme)              acc =  30.8  ppl =    --   |   8.1 s  (cfg=16, c^2=True)
+  MLP 256 (backprop)                 acc =  36.6  ppl =   8.41  |   9.8 s
+
+=== contexte k=4 : d = 140 (one-hot), C = 35 classes, n_train = 22500 ===
+  n-gramme (comptage, lissage)       acc =  52.7  ppl =   7.35  |   0.1 s
+  bloc fast (LDA oblique, rang C-1)  acc =  26.5  ppl =    --   |   0.1 s  (r=34, dual=False)
+  bloc fast, lecture MC (comparaison) acc =  30.0  ppl =    --   |
+  LDA-shrinkage (proba)              acc =  25.2  ppl =  24.02  |   0.2 s
+  regression logistique (lineaire)   acc =  33.9  ppl =  10.44  |   1.5 s
+  MLP 256 (backprop)                 acc =  51.8  ppl =   6.44  |  11.4 s

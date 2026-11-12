@@ -1,0 +1,72 @@
+
+=== gauss k=10 n=15/cl (n=60, d=20, C=4, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc fast (lineaire)           acc =  93.3 +/-  6.5 |       1 ms
+  bloc fast, lecture centroide   acc =  96.7 +/-  4.4 |       1 ms
+  treillis AUTO                  acc =  95.6 +/-  6.5 |      69 ms
+  bloc oblique a NOYAU (CV)      acc =  96.7 +/-  4.4 |      20 ms
+  LDA-shrinkage                  acc =  95.6 +/-  4.2 |       5 ms
+  SVM RBF (C=1)                  acc =  94.4 +/-  5.0 |       1 ms
+  SVM RBF (C=10)                 acc =  90.0 +/-  4.2 |       1 ms
+  SVM RBF (CV interne)           acc =  93.3 +/-  6.5 |      89 ms
+  QDA regularisee (CV interne) echec : ValueError
+  HistGradientBoosting           acc =  78.9 +/-  5.4 |     114 ms
+  k-NN (k=5)                     acc =  86.7 +/-  5.7 |       5 ms
+  MLP (backprop)                 acc =  91.1 +/-  5.7 |     141 ms
+
+=== hetero k=50 n=60/cl (n=240, d=20, C=4, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc fast (lineaire)           acc =  93.3 +/-  1.8 |       1 ms
+  bloc fast, lecture centroide   acc =  93.6 +/-  1.1 |       1 ms
+  treillis AUTO                  acc =  96.1 +/-  2.0 |     111 ms
+  bloc oblique a NOYAU (CV)      acc =  94.7 +/-  1.0 |      53 ms
+  LDA-shrinkage                  acc =  93.9 +/-  1.1 |       6 ms
+  SVM RBF (C=1)                  acc =  95.3 +/-  1.4 |       3 ms
+  SVM RBF (C=10)                 acc =  95.3 +/-  1.4 |       4 ms
+  SVM RBF (CV interne)           acc =  95.0 +/-  1.4 |     110 ms
+  QDA regularisee (CV interne)   acc =  99.7 +/-  0.6 |      47 ms
+  HistGradientBoosting           acc =  91.4 +/-  2.0 |     233 ms
+  k-NN (k=5)                     acc =  94.7 +/-  1.6 |       2 ms
+  MLP (backprop)                 acc =  92.8 +/-  1.6 |     198 ms
+
+=== digits 8x8 (n=1797, d=64, C=10, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc fast (lineaire)           acc =  93.7 +/-  0.4 |       3 ms
+  bloc fast, lecture centroide   acc =  95.3 +/-  0.2 |       3 ms
+  treillis AUTO                  acc =  95.7 +/-  0.3 |     299 ms
+  bloc oblique a NOYAU (CV)      acc =  97.5 +/-  0.3 |    3970 ms
+  LDA-shrinkage                  acc =  95.6 +/-  0.4 |      15 ms
+  SVM RBF (C=1)                  acc =  98.3 +/-  0.5 |     105 ms
+  SVM RBF (C=10)                 acc =  98.2 +/-  0.4 |      94 ms
+  SVM RBF (CV interne)           acc =  98.3 +/-  0.4 |    2576 ms
+  QDA regularisee (CV interne)   acc =  98.1 +/-  0.3 |     239 ms
+  HistGradientBoosting           acc =  97.3 +/-  0.8 |    2153 ms
+  k-NN (k=5)                     acc =  97.4 +/-  0.8 |       7 ms
+  MLP (backprop)                 acc =  97.8 +/-  0.7 |     903 ms
+
+=== breast cancer (n=569, d=30, C=2, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc fast (lineaire)           acc =  95.4 +/-  0.9 |       1 ms
+  bloc fast, lecture centroide   acc =  95.4 +/-  0.9 |       1 ms
+  treillis AUTO                  acc =  95.4 +/-  0.8 |      85 ms
+  bloc oblique a NOYAU (CV)      acc =  96.6 +/-  0.8 |     214 ms
+  LDA-shrinkage                  acc =  95.4 +/-  1.0 |       5 ms
+  SVM RBF (C=1)                  acc =  96.6 +/-  0.9 |       5 ms
+  SVM RBF (C=10)                 acc =  96.8 +/-  1.4 |       4 ms
+  SVM RBF (CV interne)           acc =  96.8 +/-  0.7 |     151 ms
+  QDA regularisee (CV interne)   acc =  95.8 +/-  0.7 |      44 ms
+  HistGradientBoosting           acc =  95.9 +/-  1.3 |     185 ms
+  k-NN (k=5)                     acc =  95.6 +/-  0.5 |       3 ms
+  MLP (backprop)                 acc =  96.5 +/-  1.2 |     315 ms
+
+=== wine (n=178, d=13, C=3, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc fast (lineaire)           acc =  99.6 +/-  0.7 |       1 ms
+  bloc fast, lecture centroide   acc = 100.0 +/-  0.0 |       1 ms
+  treillis AUTO                  acc =  98.5 +/-  1.4 |      77 ms
+  bloc oblique a NOYAU (CV)      acc =  99.3 +/-  0.9 |      38 ms
+  LDA-shrinkage                  acc =  99.6 +/-  0.7 |       4 ms
+  SVM RBF (C=1)                  acc =  99.6 +/-  0.7 |       1 ms
+  SVM RBF (C=10)                 acc =  99.6 +/-  0.7 |       1 ms
+  SVM RBF (CV interne)           acc =  99.3 +/-  0.9 |      92 ms
+  QDA regularisee (CV interne)   acc =  99.3 +/-  0.9 |      39 ms
+  HistGradientBoosting           acc =  98.5 +/-  3.0 |     102 ms
+  k-NN (k=5)                     acc =  94.8 +/-  2.2 |       2 ms
+  MLP (backprop)                 acc =  98.5 +/-  1.4 |     121 ms
+
+[noyau] ||W^T U - I_r|| dans l'espace phi = 3.7e-15

@@ -1,0 +1,54 @@
+
+=== gauss k=10 n=15/cl (n=60, d=20, C=4, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc unique (ref.)               acc =  96.7 +/-  4.4 |     0.8 ms |      76 param. (moyenne sur les decoupages)
+  treillis: transversal seul       acc =  94.4 +/-  7.0 |     2.2 ms |     181 param. (moyenne sur les decoupages)
+  treillis: transv. + [c,c^2]      acc =  95.6 +/-  4.2 |     2.1 ms |     226 param. (moyenne sur les decoupages)
+  treillis: + quad(residu, k=8)    acc =  92.2 +/-  2.7 |     2.4 ms |     494 param. (moyenne sur les decoupages)
+  treillis: + quad(residu,k=16)    acc =  72.2 +/-  7.0 |     3.2 ms |     954 param. (moyenne sur les decoupages)
+  treillis AUTO (CV interne)       acc =  95.6 +/-  6.5 |    66.0 ms |     190 param. (moyenne sur les decoupages)
+  MLP (backprop)                   acc =  91.1 +/-  5.7 |    86.5 ms |    1004 param. (moyenne sur les decoupages)
+
+=== hetero k=50 n=60/cl (n=240, d=20, C=4, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc unique (ref.)               acc =  93.6 +/-  1.1 |     0.9 ms |      76 param. (moyenne sur les decoupages)
+  treillis: transversal seul       acc =  93.6 +/-  1.1 |     2.7 ms |     181 param. (moyenne sur les decoupages)
+  treillis: transv. + [c,c^2]      acc =  93.1 +/-  1.2 |     2.6 ms |     226 param. (moyenne sur les decoupages)
+  treillis: + quad(residu, k=8)    acc =  95.3 +/-  1.1 |     3.7 ms |     494 param. (moyenne sur les decoupages)
+  treillis: + quad(residu,k=16)    acc =  96.7 +/-  2.1 |     5.5 ms |     954 param. (moyenne sur les decoupages)
+  treillis AUTO (CV interne)       acc =  96.1 +/-  2.0 |    87.8 ms |     680 param. (moyenne sur les decoupages)
+  MLP (backprop)                   acc =  92.8 +/-  1.6 |   179.3 ms |    1004 param. (moyenne sur les decoupages)
+
+=== hetero k=50 n=300/cl (n=1200, d=20, C=4, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc unique (ref.)               acc =  96.8 +/-  0.8 |     1.3 ms |      76 param. (moyenne sur les decoupages)
+  treillis: transversal seul       acc =  96.7 +/-  0.7 |     3.7 ms |     181 param. (moyenne sur les decoupages)
+  treillis: transv. + [c,c^2]      acc =  95.7 +/-  0.5 |     4.2 ms |     226 param. (moyenne sur les decoupages)
+  treillis: + quad(residu, k=8)    acc =  96.8 +/-  0.5 |     6.5 ms |     494 param. (moyenne sur les decoupages)
+  treillis: + quad(residu,k=16)    acc =  98.8 +/-  0.7 |    13.9 ms |     954 param. (moyenne sur les decoupages)
+  treillis AUTO (CV interne)       acc =  99.2 +/-  0.7 |   156.1 ms |     909 param. (moyenne sur les decoupages)
+  MLP (backprop)                   acc =  97.6 +/-  0.1 |   511.2 ms |    1004 param. (moyenne sur les decoupages)
+
+=== digits 8x8 (n=1797, d=64, C=10, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc unique (ref.)               acc =  95.3 +/-  0.2 |     2.8 ms |     645 param. (moyenne sur les decoupages)
+  treillis: transversal seul       acc =  95.4 +/-  0.4 |     8.3 ms |    1596 param. (moyenne sur les decoupages)
+  treillis: transv. + [c,c^2]      acc =  95.8 +/-  0.3 |    11.1 ms |    2001 param. (moyenne sur les decoupages)
+  treillis: + quad(residu, k=8)    acc =  94.3 +/-  0.7 |    19.9 ms |    2810 param. (moyenne sur les decoupages)
+  treillis: + quad(residu,k=16)    acc =  94.7 +/-  0.5 |    30.8 ms |    4194 param. (moyenne sur les decoupages)
+  treillis AUTO (CV interne)       acc =  95.7 +/-  0.3 |   345.2 ms |    2441 param. (moyenne sur les decoupages)
+  MLP (backprop)                   acc =  97.8 +/-  0.7 |   964.4 ms |    8688 param. (moyenne sur les decoupages)
+
+=== breast cancer (n=569, d=30, C=2, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc unique (ref.)               acc =  95.4 +/-  0.9 |     1.0 ms |      34 param. (moyenne sur les decoupages)
+  treillis: transversal seul       acc =  95.3 +/-  0.6 |     2.9 ms |      69 param. (moyenne sur les decoupages)
+  treillis: transv. + [c,c^2]      acc =  95.6 +/-  1.0 |     3.1 ms |      74 param. (moyenne sur les decoupages)
+  treillis: + quad(residu, k=8)    acc =  93.6 +/-  0.7 |     4.3 ms |     350 param. (moyenne sur les decoupages)
+  treillis: + quad(residu,k=16)    acc =  91.0 +/-  1.0 |     6.5 ms |     690 param. (moyenne sur les decoupages)
+  treillis AUTO (CV interne)       acc =  95.4 +/-  0.8 |    95.6 ms |      73 param. (moyenne sur les decoupages)
+  MLP (backprop)                   acc =  96.5 +/-  1.2 |   261.4 ms |    1921 param. (moyenne sur les decoupages)
+
+=== wine (n=178, d=13, C=3, 5 decoupages 70/30 d'un meme tirage) ===
+  bloc unique (ref.)               acc = 100.0 +/-  0.0 |     0.8 ms |      35 param. (moyenne sur les decoupages)
+  treillis: transversal seul       acc =  99.6 +/-  0.7 |     2.6 ms |      81 param. (moyenne sur les decoupages)
+  treillis: transv. + [c,c^2]      acc =  99.6 +/-  0.7 |     2.6 ms |     101 param. (moyenne sur les decoupages)
+  treillis: + quad(residu, k=8)    acc =  98.9 +/-  1.5 |     3.1 ms |     277 param. (moyenne sur les decoupages)
+  treillis: + quad(residu,k=16)    acc =  98.9 +/-  1.5 |     4.7 ms |     452 param. (moyenne sur les decoupages)
+  treillis AUTO (CV interne)       acc =  98.5 +/-  1.4 |    86.6 ms |     244 param. (moyenne sur les decoupages)
+  MLP (backprop)                   acc =  98.5 +/-  1.4 |   168.3 ms |     547 param. (moyenne sur les decoupages)

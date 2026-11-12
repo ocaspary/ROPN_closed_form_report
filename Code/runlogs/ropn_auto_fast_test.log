@@ -1,0 +1,37 @@
+=== 1. Exactitude (d=20, C=4, n=60 puis n=800) ===
+  n= 42 | coef Ledoit-Wolf : fast=0.342233 sklearn=0.342233 | ecart 0.0e+00
+        corrige : ||P_fast - P_ref||/||P_ref|| = 9.2e-11 | W^T U - I : 1.6e-15 (sans reblanchiment) | r=3
+        base    : ||P_fast - P_ref||/||P_ref|| = 2.0e-09 | r*: ref=2 fast=2 | bartlett r=3
+  n=560 | coef Ledoit-Wolf : fast=0.035593 sklearn=0.035593 | ecart 6.9e-18
+        corrige : ||P_fast - P_ref||/||P_ref|| = 3.8e-10 | W^T U - I : 7.0e-16 (sans reblanchiment) | r=3
+        base    : ||P_fast - P_ref||/||P_ref|| = 6.2e-10 | r*: ref=3 fast=3 | bartlett r=3
+
+=== 2. Forme duale (n < d) : coherence primal/dual et precision (d=200, n=15/classe) ===
+  dual=True | ||P_fast - P_ref||/||P_ref|| = 3.5e-11
+  acc ref  = 100.0%
+  acc fast = 100.0%
+
+=== 3. Temps (fit du bloc seul ; corrige : min de 3 executions apres chauffe ; base : 1 execution apres chauffe ; base ref non mesuree a d=2080) ===
+      d  n_train   C |  corr. ref (GEVD pleine)  corr. fast   gain |  base ref (+200 perm)  base fast   gain
+     20      800   4 |                    0.002      0.0007      2x |                  0.04      0.010      4x
+     64     1200  10 |                    0.004      0.0016      3x |                  0.14      0.026      5x
+    200      400   4 |                    0.016      0.0023      7x |                  0.72      0.013     55x
+    784     1000  10 |                    0.596      0.0437     14x |                 20.86      0.180    116x
+   2080       60   2 |                    3.899      0.0024   1644x |                   nan      0.022    nanx
+   2080      600   4 |                    4.981      0.0468    106x |                   nan      0.202    nanx
+
+=== 4. Mise a jour en ligne (OnlineBlock) : exactitude et cout ===
+  d=20, 200 exemples puis 100 ajouts : ecart au recalcul en bloc a (a, mu, n) geles = 2.6e-15
+  ecart au reajustement complet (Ledoit-Wolf et n remis a jour)                 = 7.8e-03
+  d=2080, n=600 : ajout d'un exemple + bloc = 67 ms (boucle Python rang-1) ; reajustement complet rapide = 58 ms
+
+=== 5. Contre une LDA specialisee (scikit-learn) : ajustement seul, min de 3 executions apres chauffe (s) ===
+    le bloc rapide et LDA(lsqr, shrinkage='auto') estiment le meme type de modele (LDA a covariance retrecie) ; LDA(svd) est sans retrecissement
+      d  n_train   C |  bloc rapide  LDA lsqr+LW  LDA eigen+LW   LDA svd |  lsqr / bloc
+     20      800   4 |       0.0006       0.0051        0.0063    0.0015 |         8.2x
+     64     1200  10 |       0.0015       0.0163        0.0251    0.0080 |        11.0x
+    200      400   4 |       0.0033       0.0186        0.0179    0.0119 |         5.7x
+    784     1000  10 |       0.0630       0.3366        0.3538    0.3103 |         5.3x
+   2080       60   2 |       0.0017       3.1717           nan    0.0131 |      1819.0x
+   2080      600   4 |       0.0435       3.5529           nan    0.3366 |        81.6x
+  accord des predictions bloc / LDA(lsqr, shrinkage='auto') sur 800 points de test, d=20, n=15/classe, 20 tirages : lecture par centroides 98.9 % (min 97.5 %) ; lecture par moindres carres 98.8 % (min 97.5 %)

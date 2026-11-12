@@ -1,0 +1,47 @@
+=== R1/R2/R6 : norme de P, angle entre sous-espaces, robustesse, et variantes de controle (C=4, d=20, 20 graines) ===
+    meme lecture pour les trois variantes : lecture par centroides sur le code (tableau principal), puis
+    lecture par moindres carres sur le code (controle de sensibilite a la lecture)
+cas                       ||P||_2 s_min(QwQu)  1/s_min | precision (%) : oblique / orthogonal / bas-rang libre
+                                                       |  propre    bruit 0.5   bruit 1.0   dilatation x2
+kappa=   10 n/cl= 15          1.10       0.906     1.10 | 97.5/96.7/93.3  92.5/91.1/86.9  83.3/83.1/72.2  96.1/95.8/93.6
+kappa=   10 n/cl=100          1.20       0.836     1.20 | 98.8/96.2/98.9  96.2/94.1/94.9  84.7/84.8/82.8  98.8/96.4/98.9
+kappa=  200 n/cl= 15          1.36       0.739     1.35 | 100.0/93.6/100.0  98.3/90.3/93.9  85.8/78.6/75.3  100.0/92.8/100.0
+kappa=  200 n/cl=100          1.70       0.597     1.67 | 100.0/96.0/100.0  97.9/94.0/96.3  81.7/86.1/77.8  100.0/96.0/100.0
+kappa=   10 n/cl= 15      lecture MC | 96.1/95.3/94.2  90.3/89.4/86.1  80.8/81.9/72.8  95.8/95.6/93.9
+kappa=   10 n/cl=100      lecture MC | 98.7/96.4/98.8  95.4/93.6/94.9  83.7/84.7/82.2  98.7/96.6/98.9
+kappa=  200 n/cl= 15      lecture MC | 99.7/93.1/100.0  97.5/90.0/93.1  85.3/78.1/76.4  99.7/92.8/100.0
+kappa=  200 n/cl=100      lecture MC | 100.0/96.7/100.0  97.2/94.4/96.1  80.8/85.6/77.4  100.0/97.0/100.0
+    (||P||_2 = 1/sigma_min(Q_W^T Q_U) exactement : les deux colonnes sont le meme risque ; la norme euclidienne de P
+     est 1/sin de l'angle minimal entre im P et ker P, et vaut 1 dans la metrique S_W^{-1} ou P est orthogonal.)
+
+=== R3 : rang retenu contre rangs fixes (kappa=200, sep=0.8, 20 graines) ===
+  n/cl=  5 : r=1 65.0  r=2 82.5  r=3 (C-1) 94.2  | auto 67.5  rang teste moyen 1.15 +- 0.48
+  n/cl= 15 : r=1 80.3  r=2 95.6  r=3 (C-1) 100.0  | auto 100.0  rang teste moyen 3.00 +- 0.00
+  n/cl=100 : r=1 87.3  r=2 98.2  r=3 (C-1) 100.0  | auto 100.0  rang teste moyen 3.00 +- 0.00
+  (reglage fin par retropropagation : aucun gain net observe dans le protocole teste, voir ropn_auto_finetune.py.)
+
+=== R4 : Jacobien global de T pas partages (kappa=200, n/cl=100, d=20) ===
+  ||P||_2 = 1.547
+    T |  lineaire (I+P/T)^T : cond   borne |  porte non normalisee : cond        det |  porte normalisee (L=T) : cond        det
+    1 |                       2.85    4.52 |                     4.31e+00   4.48e-04 |                           4.31   4.48e-04
+    2 |                       3.36    5.45 |                     8.68e+00   2.01e-07 |                           3.35   1.07e-03
+    4 |                       3.77    6.18 |                     1.67e+01   4.03e-14 |                           3.04   1.50e-03
+    8 |                       4.04    6.65 |                     8.49e+01   1.63e-27 |                           2.92   1.76e-03
+   32 |                       4.28    7.08 |                     4.81e+06  6.99e-108 |                           2.83   1.96e-03
+  (configuration recommandee : T=1, porte analytique, lecture sur le code ; la prediction ne depend alors pas de T.)
+
+=== R5 : stabilite de la selection (rang, configuration du treillis) entre graines ===
+  rang (test S_T) kappa=   10 n/cl=  5 : moyenne 1.45, ecart-type 0.50, histogramme [0, 11, 9, 0] (rang vrai 3)
+  rang (test S_T) kappa=   10 n/cl= 15 : moyenne 3.00, ecart-type 0.00, histogramme [0, 0, 0, 20] (rang vrai 3)
+  rang (test S_T) kappa=   10 n/cl= 50 : moyenne 3.00, ecart-type 0.00, histogramme [0, 0, 0, 20] (rang vrai 3)
+  rang (test S_T) kappa=  200 n/cl=  5 : moyenne 1.15, ecart-type 0.48, histogramme [1, 15, 4, 0] (rang vrai 3)
+  rang (test S_T) kappa=  200 n/cl= 15 : moyenne 3.00, ecart-type 0.00, histogramme [0, 0, 0, 20] (rang vrai 3)
+  rang (test S_T) kappa=  200 n/cl= 50 : moyenne 3.00, ecart-type 0.00, histogramme [0, 0, 0, 20] (rang vrai 3)
+  treillis AUTO (codes^2, k_quad) sur 8 graines, donnees gaussiennes : [(False, 0), (False, 0), (False, 0), (False, 0), (False, 0), (False, 0), (False, 0), (False, 0)]
+
+=== R7 : idempotence et effet du retrecissement sur l'operateur (kappa=200, 10 graines) ===
+  n/cl=  15 : ||P^2-P||/||P|| = 8.9e-16 | ||P_LW - P_brut||/||P_brut|| = 0.658 | coefficient LW moyen 0.217
+  n/cl= 100 : ||P^2-P||/||P|| = 1.0e-15 | ||P_LW - P_brut||/||P_brut|| = 0.271 | coefficient LW moyen 0.045
+  n/cl=1000 : ||P^2-P||/||P|| = 9.4e-16 | ||P_LW - P_brut||/||P_brut|| = 0.045 | coefficient LW moyen 0.005
+  (operateur exact : P = U W^T, W = S^{-1} D Q Lambda^{-1/2}, U = D Q Lambda^{-1/2}, S = (1-a) S_W + a mu I (Ledoit-Wolf),
+   D Q Lambda Q^T = decomposition de D^T S^{-1} D ; W^T U = I_r par construction.)

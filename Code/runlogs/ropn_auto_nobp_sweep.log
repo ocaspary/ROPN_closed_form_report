@@ -1,0 +1,21 @@
+  kappa  n/classe acc ortho  acc base  acc corr  acc MLP  #par base  #par corr  #par MLP  r*  shrink
+      1       200     97.5%     96.8%     97.5%    96.6%        144         76       804 3.0     non   (std base=1.8, std corr=1.5, std MLP=1.8)
+        differences appariees [IC 95 %] : corrige - MLP  +0.9 [ +0.5,  +1.3] A > B | corrige - orthogonal  +0.0 [ -0.0,  +0.1] equivalent | corrige (centroides) - corrige (MC)  +0.2 [ -0.1,  +0.5] equivalent [MC : 97.3%]
+      1        15     93.6%     69.7%     93.1%    90.6%        132         76       804 2.4     non   (std base=15.0, std corr=5.2, std MLP=5.0)
+        differences appariees [IC 95 %] : corrige - MLP  +2.5 [ +0.2,  +4.8] A > B | corrige - orthogonal  -0.6 [ -1.4,  +0.2] indetermine | corrige (centroides) - corrige (MC)  -0.3 [ -2.1,  +1.5] indetermine [MC : 93.3%]
+     10       200     97.2%     98.9%     99.1%    98.2%        144         76       804 3.0     non   (std base=1.0, std corr=1.0, std MLP=1.2)
+        differences appariees [IC 95 %] : corrige - MLP  +0.9 [ +0.6,  +1.3] A > B | corrige - orthogonal  +2.0 [ +1.4,  +2.5] A > B | corrige (centroides) - corrige (MC)  +0.1 [ -0.1,  +0.3] equivalent [MC : 99.0%]
+     10        15     96.7%     78.9%     97.5%    92.8%        139         76       804 2.8     non   (std base=12.1, std corr=3.7, std MLP=5.3)
+        differences appariees [IC 95 %] : corrige - MLP  +4.7 [ +2.0,  +7.4] A > B | corrige - orthogonal  +0.8 [ -0.9,  +2.6] indetermine | corrige (centroides) - corrige (MC)  +1.4 [ -0.0,  +2.8] indetermine [MC : 96.1%]
+     50       200     96.8%     99.9%    100.0%    99.5%        144         76       804 3.0     non   (std base=0.1, std corr=0.1, std MLP=0.5)
+        differences appariees [IC 95 %] : corrige - MLP  +0.4 [ +0.2,  +0.6] equivalent | corrige - orthogonal  +3.1 [ +2.3,  +4.0] A > B | corrige (centroides) - corrige (MC)  +0.0 [ -0.0,  +0.1] equivalent [MC : 99.9%]
+     50        15     95.6%     85.0%     99.2%    95.6%        129         76       804 2.2     non   (std base=9.3, std corr=2.0, std MLP=5.4)
+        differences appariees [IC 95 %] : corrige - MLP  +3.6 [ +0.9,  +6.3] A > B | corrige - orthogonal  +3.6 [ +0.9,  +6.3] A > B | corrige (centroides) - corrige (MC)  +0.6 [ -0.6,  +1.7] indetermine [MC : 98.6%]
+    200       200     96.6%    100.0%    100.0%    99.8%        144         76       804 3.0     non   (std base=0.0, std corr=0.0, std MLP=0.3)
+        differences appariees [IC 95 %] : corrige - MLP  +0.2 [ +0.0,  +0.3] equivalent | corrige - orthogonal  +3.4 [ +2.4,  +4.5] A > B | corrige (centroides) - corrige (MC)  +0.0 [ +0.0,  +0.0] equivalent [MC : 100.0%]
+    200        15     93.6%     86.4%    100.0%    98.1%        125         76       804 2.0     non   (std base=10.6, std corr=0.0, std MLP=3.2)
+        differences appariees [IC 95 %] : corrige - MLP  +1.9 [ +0.4,  +3.5] A > B | corrige - orthogonal  +6.4 [ +3.6,  +9.2] A > B | corrige (centroides) - corrige (MC)  +0.3 [ -0.3,  +0.9] equivalent [MC : 99.7%]
+   1000       200     96.4%    100.0%    100.0%    99.9%        144         76       804 3.0     non   (std base=0.0, std corr=0.0, std MLP=0.2)
+        differences appariees [IC 95 %] : corrige - MLP  +0.1 [ -0.0,  +0.2] equivalent | corrige - orthogonal  +3.6 [ +2.5,  +4.7] A > B | corrige (centroides) - corrige (MC)  +0.0 [ +0.0,  +0.0] equivalent [MC : 100.0%]
+   1000        15     91.1%     90.8%    100.0%    97.5%        125         76       804 2.0     non   (std base=8.7, std corr=0.0, std MLP=3.7)
+        differences appariees [IC 95 %] : corrige - MLP  +2.5 [ +0.7,  +4.3] A > B | corrige - orthogonal  +8.9 [ +5.4, +12.4] A > B | corrige (centroides) - corrige (MC)  +0.0 [ +0.0,  +0.0] equivalent [MC : 100.0%]

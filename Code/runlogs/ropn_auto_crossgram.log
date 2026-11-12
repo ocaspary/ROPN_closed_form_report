@@ -1,0 +1,9 @@
+[verif] cross-Gram euclidien : W^T U - I = 1.1e-15, ||U - W||/||U|| = 0.0e+00 (projecteur orthogonal)
+
+(5 decoupages 70/30 stratifies d'un meme tirage ; les colonnes lam=... sont des lambda FIXES ; 'lam CV' est choisi par validation croisee interne)
+
+cas                                LW auto (blo     lam=0.01      lam=0.1        lam=1       lam=10 euclidien (l   lam CV  PLS-DA(C-1)      MLP
+gauss d=20, n=15/cl, kappa=10              96.7         94.4         94.4         97.8         96.7         94.4     96.7         91.1     91.1
+gauss d=20, n=15/cl, kappa=200            100.0        100.0        100.0        100.0         97.8         91.1    100.0         86.7     93.3
+gauss d=500, n=15/cl (n<<d)               100.0        100.0        100.0        100.0        100.0        100.0    100.0        100.0    100.0
+digits 8x8                                 95.3         95.7         95.6         94.5         91.0         89.2     95.5         90.4     97.8

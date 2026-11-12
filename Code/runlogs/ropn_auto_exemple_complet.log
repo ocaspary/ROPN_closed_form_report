@@ -1,0 +1,89 @@
+=== Exemple complet : d = 3, C = 3, 30 exemples par classe, decoupage aleatoire non stratifie en 60 (apprentissage) et 30 (test) ===
+  tailles de classes : [19 22 19]
+  moyennes de classe (lignes) =
+     [  -0.241    0.017   -0.097]
+     [   3.471    0.461   -0.027]
+     [   0.536    3.383    0.168]
+  moyenne globale =
+     [   1.366    1.246    0.012]
+  S_W (intra-classe, denominateur n) =
+     [   0.707    0.401    0.432]
+     [   0.401    0.817    0.085]
+     [   0.432    0.085    0.567]
+  Ledoit-Wolf : a = 0.196, mu = 0.697
+  S = (1-a) S_W + a mu I =
+     [   0.705    0.323    0.347]
+     [   0.323    0.793    0.069]
+     [   0.347    0.069    0.592]
+  D = [sqrt(n_c)(mu_c - mu)]/sqrt(C-1)  (d x C) =
+     [  -4.953    6.981   -2.559]
+     [  -3.787   -2.603    6.588]
+     [  -0.338   -0.130    0.479]
+  Z = S^{-1} D =
+     [  -8.515   19.969  -12.973]
+     [  -1.709  -10.479   12.985]
+     [   4.619  -10.713    6.909]
+  M = D^T S^{-1} D  (C x C, rang <= C-1) =
+     [  47.082  -55.592   12.739]
+     [ -55.592  168.072 -125.262]
+     [  12.739 -125.262  122.051]
+  valeurs propres de M : [283.482  53.722   0.   ]   (la derniere est nulle : rang structurel C-1 = 2)
+  test de permutation (metrique S_T, 500 permutations) : valeurs propres dans la metrique S_T = [28.97 19.21], seuil 95% = 4.8358, rang teste = 2, rang retenu r = 2
+  W = Z Q_r Lambda_r^{-1/2}  (mesure, d x r) =
+     [  -1.483   -0.548]
+     [   0.924   -0.856]
+     [   0.794    0.304]
+  U = D Q_r Lambda_r^{-1/2}  (representation, d x r) =
+     [  -0.472   -0.558]
+     [   0.309   -0.835]
+     [   0.019   -0.069]
+  W^T U =
+     [   1.000    0.000]
+     [   0.000    1.000]
+  P = U W^T =
+     [   1.005    0.042   -0.544]
+     [   0.000    1.001   -0.008]
+     [   0.010    0.077   -0.006]
+  ||P^2 - P|| = 1.0e-15, rang(P) = 2
+  ||P||_2 = 1.147 = 1/sigma_min(Q_W^T Q_U) = 1.147 ; angle minimal image/noyau = 60.7 deg ; borne metrique (sqrt(k)+1/sqrt(k))/2 = 1.34 <= sqrt(k) = 2.24, k = kappa(S)
+  ecart entre le bloc 'a la main' et fit_block_fast : ||U - U_fast|| = 3.9e-16 (au signe des colonnes pres)
+  centroides de classe dans l'espace du code (C x r) =
+     [   0.295    0.088]
+     [  -4.743   -2.305]
+     [   2.464   -3.140]
+  termes constants -||m_k||^2/2 + log pi_k : [ -1.197 -14.907  -9.115]
+  precision test : 96.7%  (parametres : d r + r C + C = 15) ; lecture par moindres carres sur le meme code : 90.0%, predictions identiques sur 93% des points
+  LDA calculee directement avec la meme covariance S : predictions identiques sur 100% des points de test
+  point test x = [5.074 2.205 0.656] (classe 1) : code c = W^T x = [-4.967 -4.471], P x = [4.836 2.201 0.216], residu (I-P) x = [0.238 0.004 0.44 ]
+     distances au carre aux centroides ||c - m_k||^2 = [48.477  4.739 56.993]
+     scores = [-3.059 18.957 -7.317] -> classe predite 1
+  recursion gatee partagee (invariance du code) sur ce point :
+     T=0 : h_T = [5.074 2.205 0.656], code W^T h_T = [-4.967 -4.471], ||(I-P) h_T|| = 0.500
+     T=1 : h_T = [5.049 2.204 0.61 ], code W^T h_T = [-4.967 -4.471], ||(I-P) h_T|| = 0.447
+     T=2 : h_T = [5.027 2.204 0.568], code W^T h_T = [-4.967 -4.471], ||(I-P) h_T|| = 0.400
+     T=4 : h_T = [4.989 2.204 0.498], code W^T h_T = [-4.967 -4.471], ||(I-P) h_T|| = 0.320
+  seuil d'interpolation : (n_train-C)/d, ||P|| brut, ||P|| LW, acc brut, acc LW
+      0.20    7.46   1.34   45.0   83.8
+      0.35    3.98   1.32   46.0   95.0
+      0.50    3.00   1.32   70.0   94.2
+      0.60    3.30   1.27   76.9   96.2
+      0.75    3.34   1.26   88.9   98.3
+      0.90    4.58   1.28   85.5   99.0
+      1.05    4.73   1.29   89.1   99.5
+      1.20    3.49   1.31   98.3  100.0
+      1.30    3.26   1.35   97.1   99.3
+      1.45    2.94   1.35   99.7  100.0
+      1.60    2.76   1.35  100.0  100.0
+      1.75    2.75   1.35  100.0   99.7
+      1.90    2.60   1.36  100.0  100.0
+      2.00    2.51   1.37  100.0  100.0
+      2.15    2.48   1.39  100.0   99.8
+      2.30    2.43   1.36  100.0  100.0
+      2.45    2.40   1.40  100.0   99.8
+      2.60    2.36   1.40  100.0  100.0
+      3.30    2.36   1.43  100.0  100.0
+      4.00    2.25   1.45  100.0  100.0
+      5.40    2.21   1.51  100.0   99.9
+      6.80    2.21   1.57  100.0  100.0
+
+  figures ecrites : fig_oblique_geometry.pdf, fig_worked_example.pdf, fig_recursion.pdf, fig_norm_vs_n.pdf, fig_triceptron.pdf, fig_double_descent.pdf

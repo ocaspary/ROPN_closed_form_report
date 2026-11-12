@@ -1,0 +1,39 @@
+ropn_auto_fast_test OK 108s
+ropn_auto_lattice OK 15s
+ropn_auto_kernel OK 55s
+ropn_auto_benchmark OK 15s
+ropn_auto_riemann OK 12s
+ropn_auto_central OK 180s
+ropn_auto_nobp OK 1s
+ropn_auto_nobp_diag OK 13s
+ropn_auto_finetune OK 103s
+ropn_auto_nobp_sweep OK 43s
+ropn_auto_bioblique OK 36s
+ropn_auto_charlm OK 30s
+ropn_auto_crossgram OK 7s
+ropn_auto_rang OK 135s
+ropn_auto_depth_theory OK 10s
+ropn_auto_examples OK 0s
+ropn_auto_risques OK 3s
+ropn_auto_stabilite OK 2s
+ropn_auto_exemple_complet OK 6s
+ropn_auto_triceptron OK 246s
+ropn_auto_fourier OK 345s
+--- relance apres passage a la lecture par centroides (regle LDA) dans tous les scripts concernes :
+ropn_auto_nobp_diag OK 17s
+ropn_auto_nobp_sweep OK 48s
+ropn_auto_benchmark OK 16s
+ropn_auto_risques OK 4s
+ropn_auto_exemple_complet OK 7s
+ropn_auto_stabilite OK 2s
+ropn_auto_lattice OK 18s
+ropn_auto_kernel OK 68s
+ropn_auto_bioblique OK 41s
+ropn_auto_crossgram OK 9s
+ropn_auto_riemann OK 13s
+ropn_auto_fast_test OK 130s
+ropn_auto_charlm OK 35s
+ropn_auto_finetune OK 123s
+ropn_auto_triceptron OK 249s
+ropn_auto_charlm OK (relance apres ajout de la ligne de comparaison par moindres carres)
+DONE

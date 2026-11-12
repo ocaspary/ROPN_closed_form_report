@@ -1,0 +1,45 @@
+=== A. Reduction de la profondeur gatee ===
+  (i)   residu invariant                 : 2.3e-16
+  (ii)  recursion du code (dim r=3)     : 4.6e-16
+  (iii) meme (c0, S^T rho0) -> meme c_T   : 1.7e-14  (residus differents de 3.00)
+  (iv)  S dans span(W) -> c_T sans residu : 2.7e-15
+  (v)   r=1, c0 -> c_T strictement croissant : True
+  scalaire : cos(angle(rho_T, rho_0)) = 1.000000000000 (direction du residu fixe)
+
+=== B. Capacite quadrique du triceptron ===
+  (i)  s=w : sup_z |sigma(kappa z) z - ReLU(z)| a kappa=     1 : 2.785e-01  (0.2785/kappa = 2.785e-01)
+  (i)  s=w : sup_z |sigma(kappa z) z - ReLU(z)| a kappa=    50 : 5.569e-03  (0.2785/kappa = 5.569e-03)
+  (i)  s=w : sup_z |sigma(kappa z) z - ReLU(z)| a kappa=  1000 : 2.785e-04  (0.2785/kappa = 2.785e-04)
+  (ii) cercle R=1, 2 unites + saut (kappa=0.5) : ecart relatif a la quadrique sur [-3,3]^2 1.1e-01 ; ecart radial max de la courbe de niveau 1.05e-02  (kappa^2 R^3/24 = 1.04e-02)
+  (ii) cercle R=1, 2 unites + saut (kappa=0.2) : ecart relatif a la quadrique sur [-3,3]^2 2.0e-02 ; ecart radial max de la courbe de niveau 1.67e-03  (kappa^2 R^3/24 = 1.67e-03)
+  (ii) cercle R=1, 2 unites + saut (kappa=0.05) : ecart relatif a la quadrique sur [-3,3]^2 1.3e-03 ; ecart radial max de la courbe de niveau 1.04e-04  (kappa^2 R^3/24 = 1.04e-04)
+  (ii) XOR, 1 unite + saut : accord du signe 100.00% ; 2 unites (regime dur) : 100.00% (hors axes)
+  (iv) disque sans marge, grille 601x601 sur [-1.5,1.5]^2, MLP ReLU a m unites (L-BFGS, 3 graines, graine retenue = meilleure precision d'APPRENTISSAGE) :
+          m  N(m)  erreur de surface  encadrement mesure  borne tan^2(pi/2N(m))  borne convexe tan^2(pi/4m)
+          2     4             32.08%              1.1213                0.17157                     0.17157
+          3     7              2.76%              0.1362                0.05210                     0.07180
+          4    11              1.55%              0.0699                0.02067                     0.03957
+          6    22              1.09%              0.0700                0.00512                     0.01733
+         10    56              0.75%              0.0501                0.00079                     0.00619
+         20   211              0.51%              0.0273                0.00006                     0.00154
+         40   821              0.35%              0.0239                0.00000                     0.00039
+        2 triceptrons doux + saut, poids explicites (kappa=0.05) : erreur de surface 0.014%, encadrement (ecart radial) 1.04e-04
+        precision 1e-02 : N >= 16 segments, donc m >= 5 unites (m >= 8 si la region est convexe)
+        precision 1e-03 : N >= 50 segments, donc m >= 10 unites (m >= 25 si la region est convexe)
+        precision 1e-04 : N >= 158 segments, donc m >= 18 unites (m >= 79 si la region est convexe)
+        (avec marge, make_circles f=0.5, precision d'apprentissage : ReLU m=2 -> 83.3%, m=3 -> 100.0% : un triangle suffit quand il y a une marge)
+
+=== C. Invariance du code et determinants exacts (differences finies) ===
+  code : max ||W^T h_T - W^T x|| = 6.7e-14 (T = 1, 4, 16, portes dans et hors de span(W)) ; forme fermee de h_T (porte dans span(W)) : 2.9e-15
+  porte hors de span(W) : a_t varie de 0.343 le long de l'orbite (T = 16) ; porte dans span(W) : variation 1e-16
+  bloc gate scalaire, L=1, s quelconque : det formule = -5.1138954e-03, differences finies = -5.1138954e-03
+  bloc gate scalaire, L=2, s quelconque : det formule = 5.2176658e-02, differences finies = 5.2176658e-02
+  s dans span(W), L=1 : det differences finies = 7.6077713e-01, (1-a)^(d-r) = 7.6077713e-01
+  cas construit a * s^T(I-P)h = 1.000000 : det differences finies = -6.6e-15 (formule : 0)
+  bloc gate par coordonnee (d=10, r=3, L=2) : det r x r = -3.33654787, differences finies d x d = -3.33654787
+  bloc gate par coordonnee (d=10, r=3, L=2) : det r x r = 5.35252229, differences finies d x d = 5.35252229
+  bloc gate par coordonnee (d=10, r=3, L=2) : det r x r = 1.54207626, differences finies d x d = 1.54207627
+  rang un, L=1, alpha=1, b=0, beta=12 : phi(-16) = -16.29, phi(-12) = -18.00, phi(-8) = -15.86 (non monotone : alpha c < -4L)
+  rang un, L=1 : phi' > 0 pour tout beta des que alpha c > -5.83  (2L+1+2 sqrt(L(L+1)) = 5.83 ; condition suffisante 4L = 4)
+  rang un, L=2 : phi' > 0 pour tout beta des que alpha c > -9.90  (2L+1+2 sqrt(L(L+1)) = 9.90 ; condition suffisante 4L = 8)
+  rang un, L=4 : phi' > 0 pour tout beta des que alpha c > -17.94  (2L+1+2 sqrt(L(L+1)) = 17.94 ; condition suffisante 4L = 16)
